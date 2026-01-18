@@ -1,5 +1,5 @@
 {
-  "name": "copy-of-lookershub---we-see-differently",
+  "name": "lookershub---we-see-differently",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,6 +11,7 @@
   "dependencies": {
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "react-router-dom": "^7.2.0",
     "lucide-react": "^0.562.0"
   },
   "devDependencies": {

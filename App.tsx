@@ -1,15 +1,26 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import PickApp from './components/PickApp';
-import About from './components/About';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+
+type Language = 'en' | 'ar';
+
+interface LanguageContextType {
+  lang: Language;
+  setLang: (lang: Language) => void;
+}
+
+export const LanguageContext = createContext<LanguageContextType>({
+  lang: 'en',
+  setLang: () => {},
+});
+
+export const useLanguage = () => useContext(LanguageContext);
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState<Language>('en');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,28 +30,21 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   return (
-    <div className="min-h-screen flex flex-col selection:bg-[#d4af37] selection:text-white">
-      <Header scrolled={scrolled} />
-      <main className="flex-grow">
-        <section id="home">
-          <Hero />
-        </section>
-        <section id="services">
-          <Services />
-        </section>
-        <section id="pick">
-          <PickApp />
-        </section>
-        <section id="about">
-          <About />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
-      </main>
-      <Footer />
-    </div>
+    <LanguageContext.Provider value={{ lang, setLang }}>
+      <div className={`min-h-screen flex flex-col selection:bg-[#d4af37] selection:text-white bg-[#05070a] ${lang === 'ar' ? 'font-arabic' : ''}`}>
+        <Header scrolled={scrolled} />
+        <main className="flex-grow">
+          <HomePage />
+        </main>
+        <Footer />
+      </div>
+    </LanguageContext.Provider>
   );
 };
 

@@ -1,96 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LookersHub | We See Differently</title>
-
-    <!-- Tailwind CDN -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Outfit (English) and Almarai (Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              gold: '#E6C15A',
-              mutedGray: '#B8BDC4',
-              dimGray: '#8C9197',
-              mutedWhite: '#EAEAEA',
-              navy: '#05070a',
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#E6C15A',
+                        navy: '#05070a',
+                        mutedGray: '#8C9197',
+                        dimGray: '#555555'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        arabic: ['Almarai', 'sans-serif'],
+                    }
+                }
             }
-          }
         }
-      }
     </script>
-
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Almarai:wght@300;400;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Global Styles -->
+    
     <style>
-      body {
-        font-family: 'Outfit', sans-serif;
-        scroll-behavior: smooth;
-        background-color: #05070a;
-        color: #B8BDC4;
-      }
-
-      .font-arabic {
-        font-family: 'Almarai', sans-serif;
-      }
-
-      .bg-navy {
-        background-color: #05070a;
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s ease-out;
-      }
-
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .switch-bg {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      @keyframes fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .animate-fade-in {
-        animation: fade-in 0.5s ease-out forwards;
-      }
-    </style>
-
-    <!-- Import Maps -->
-    <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@19.2.3",
-          "react-dom": "https://esm.sh/react-dom@19.2.3",
-          "react-dom/client": "https://esm.sh/react-dom@19.2.3/client",
-          "react-router-dom": "https://esm.sh/react-router-dom@7.2.0",
-          "lucide-react": "https://esm.sh/lucide-react@0.562.0"
+        body {
+            background-color: #05070a;
+            color: white;
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Outfit', sans-serif;
         }
-      }
-    </script>
-  </head>
 
-  <body class="bg-navy antialiased overflow-x-hidden">
-    <!-- React Root -->
+        /* Scanline Effect */
+        .scanlines::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 2;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* Animation utilities used across components */
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-fade-in {
+            animation: fade-in 1s ease-out forwards;
+        }
+
+        .startup-shadow {
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8), 0 0 40px -10px rgba(230,193,94,0.1);
+        }
+        
+        .gold-gradient {
+            background: linear-gradient(135deg, #E6C15A 0%, #B8963D 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05070a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a1c22;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E6C15A;
+        }
+    </style>
+    
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+        "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+      }
+    }
+    </script>
+</head>
+<body class="antialiased scanlines">
+    <!-- Mount Point for React App -->
     <div id="root"></div>
 
-    <!-- React Entry Point (مهم جدًا) -->
-    <script type="module" src="/src/index.tsx"></script>
-  </body>
+    <!-- Entry point for the application -->
+    <script type="module" src="index.tsx"></script>
+</body>
 </html>

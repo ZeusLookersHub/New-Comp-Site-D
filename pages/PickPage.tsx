@@ -2,7 +2,8 @@
 import React, { useEffect } from 'react';
 import { Sparkles, Zap, Shield, Globe, ArrowRight, Layers, Target, Activity, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../App';
+// Fixed: import useLanguage from LanguageContext instead of App
+import { useLanguage } from '../LanguageContext';
 
 const PickPage: React.FC = () => {
   const { lang } = useLanguage();

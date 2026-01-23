@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 // Fixed: import useLanguage from LanguageContext instead of App
 import { useLanguage } from '../LanguageContext';
 
-const AboutPage: React.FC = () => {
+const StartProjectPage: React.FC = () => {
   const { lang } = useLanguage();
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -11,16 +11,16 @@ const AboutPage: React.FC = () => {
     <div className="bg-navy min-h-screen pt-40 px-6">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-7xl md:text-[10rem] font-black text-white leading-[0.85] tracking-tighter mb-8">
-          {lang === 'en' ? <>About <span className="text-gold">Lookers.</span></> : <>حول <span className="text-gold">Lookers.</span></>}
+          {lang === 'en' ? <>Let's <span className="text-gold">Build.</span></> : <>لنقم <span className="text-gold">بالبناء.</span></>}
         </h1>
         <p className="text-2xl md:text-3xl text-mutedGray tracking-tight max-w-4xl font-medium leading-relaxed">
           {lang === 'en' 
-            ? "We are an integrated tech company that refuses to look at the digital world through a conventional lens. We see the unseen opportunities others overlook."
-            : "نحن شركة تكنولوجية متكاملة ترفض النظر إلى العالم الرقمي من منظور تقليدي. نحن نرى الفرص غير المرئية التي يتجاهلها الآخرون."}
+            ? "Turn your idea into a high-performance product. This section will be updated with a project brief form."
+            : "حوّل فكرتك إلى منتج عالي الأداء. سيتم تحديث هذا القسم بنموذج مختصر للمشروع."}
         </p>
       </div>
     </div>
   );
 };
 
-export default AboutPage;
+export default StartProjectPage;

@@ -1,26 +1,18 @@
-
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { LanguageProvider, useLanguage } from './LanguageContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import ServicesPage from './pages/ServicesPage';
+import ProjectsPage from './pages/ProjectsPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import StartProjectPage from './pages/StartProjectPage';
 
-type Language = 'en' | 'ar';
-
-interface LanguageContextType {
-  lang: Language;
-  setLang: (lang: Language) => void;
-}
-
-export const LanguageContext = createContext<LanguageContextType>({
-  lang: 'en',
-  setLang: () => {},
-});
-
-export const useLanguage = () => useContext(LanguageContext);
-
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState<Language>('en');
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,21 +22,31 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
-  }, [lang]);
-
   return (
-    <LanguageContext.Provider value={{ lang, setLang }}>
-      <div className={`min-h-screen flex flex-col selection:bg-[#d4af37] selection:text-white bg-[#05070a] ${lang === 'ar' ? 'font-arabic' : ''}`}>
-        <Header scrolled={scrolled} />
-        <main className="flex-grow">
-          <HomePage />
-        </main>
-        <Footer />
-      </div>
-    </LanguageContext.Provider>
+    <div className={`min-h-screen flex flex-col selection:bg-gold selection:text-black bg-navy ${lang === 'ar' ? 'font-arabic' : ''}`}>
+      <Header scrolled={scrolled} />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/start-your-project" element={<StartProjectPage />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <LanguageProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </LanguageProvider>
   );
 };
 

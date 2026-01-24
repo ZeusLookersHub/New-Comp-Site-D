@@ -145,7 +145,7 @@ const HomePage: React.FC = () => {
             {lang === 'en' ? 'Get Started' : 'ابدأ الآن'}
           </Link>
           <p className="mt-10 text-dimGray text-[10px] uppercase font-black tracking-[0.5em]">
-            {lang === 'en' ? 'Main call-to-action note' : 'ملاحظة حول زر العمل الرئيسي'}
+            {lang === 'en' ? 'Click Here To Bring your vistion to life' : 'اضغط هنا عشان تشوف رؤيتك على أرض الواقع'}
           </p>
         </div>
       </section>
